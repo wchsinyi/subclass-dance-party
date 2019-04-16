@@ -3,6 +3,7 @@ var makeBlinkyDancer = function(top, left, timeBetweenSteps) {
   // so we must keep a copy of the old version of this function
   this.oldStep = makeDancer.prototype.step;
   makeDancer.call(this, top, left, timeBetweenSteps);
+  this.$node.attr('id', 'blinky');
 };
 
 makeBlinkyDancer.prototype = Object.create(makeDancer.prototype);

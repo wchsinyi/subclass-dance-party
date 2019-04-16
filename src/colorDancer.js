@@ -3,7 +3,7 @@ var colorDancer = function(top, left, timeBetweenSteps) {
   // so we must keep a copy of the old version of this function
   this.oldStep = makeDancer.prototype.step;
   makeDancer.call(this, top, left, timeBetweenSteps);
-  this.$node.attr('id', 'rainbow');
+  this.$node.attr('id', 'color');
 };
 
 colorDancer.prototype = Object.create(makeDancer.prototype);
