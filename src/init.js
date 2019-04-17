@@ -41,19 +41,22 @@ $(document).ready(function() {
     }
   });
 
-  // $('body').on('mouseover', '.dancer', function(event){
-  //   event.preventDefault();
-  //   // debugger;
-  //   $(this).toggle(200);
-  // });
+  $('body').on('mouseover', '.dancer', function(event){
+
+    event.preventDefault();
+    $(this).fadeOut(2000);
+  });
+
+  $('body').on('mouseout', '.dancer', function(event){
+    event.preventDefault();
+    $(this).fadeIn(2000);
+  });
 
   $('body').on('click', '.dancer', function(event){
     event.preventDefault();
     var dist = [];
-    // console.log(window.dancers);
     var baseLeft = Number($(this).css('left').replace("px", ""));
     var baseTop = Number($(this).css('top').replace("px", ""));
-    // console.log(baseLeft, baseTop);
 
     let l = window.dancers.length;
     for (let i = 0; i < l; i++) {
@@ -65,23 +68,18 @@ $(document).ready(function() {
       return a[0] - b[0]; 
     });
 
-    for (let i = 1; i < 4; i++){
+    for (let i = 1; i < 20 && i< l ; i++){
       let index = dist[i][1];
       window.dancers[index].lineup(baseLeft);
     }
-    // console.log(dist);
-
-
   });
+
+
+
+  $('.reset').on('click',  function(event){
+    $('.dancer').remove();
+  });
+
 });
 
 
-// Why this is not a good idea? 
-// $(document).on({
-//   mouseover: function () {
-//     console.log('hiiiiiiiiii');
-//   },
-//   mouseout: function () {
-//     console.log('bye');
-//   }
-// }, ".dancer"); 
