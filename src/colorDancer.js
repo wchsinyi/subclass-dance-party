@@ -3,7 +3,7 @@ var colorDancer = function(top, left, timeBetweenSteps) {
   // so we must keep a copy of the old version of this function
   this.oldStep = makeDancer.prototype.step;
   makeDancer.call(this, top, left, timeBetweenSteps);
-  this.$node.attr('id', 'rainbow');
+  this.$node.attr('id', 'color');
 };
 
 colorDancer.prototype = Object.create(makeDancer.prototype);
@@ -16,11 +16,12 @@ colorDancer.prototype.step = function() {
   // toggle() is a jQuery method to show/hide the <span> tag.
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
-  var colors = ['#ff0000', '#00ff00', '#0000ff'];
-  var randomColor = colors[Math.floor(Math.random() * colors.length)];
+  var randomColor = Math.floor(Math.random()*16777215).toString(16);
   var styleSettings = {    
-    border: '10px solid ' + randomColor
-  };
+    width: Math.random()*10,
+    height: Math.random()*10,
+    border: '5px solid #' + randomColor
+    };
   this.$node.css(styleSettings);
 };
   

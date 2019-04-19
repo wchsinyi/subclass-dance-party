@@ -23,8 +23,8 @@ $(document).ready(function() {
     // make a dancer with a random position
 
     var dancer = new dancerMakerFunction(
-      $("body").height() * Math.random(),
-      $("body").width() * Math.random(),
+      $("body").height() * Math.random() * 0.9,
+      $("body").width() * Math.random() * 0.9,
       Math.random() * 1000
     );
     $('body').append(dancer.$node);
@@ -37,8 +37,49 @@ $(document).ready(function() {
     // loop through each 
     let l = window.dancers.length;
     for (let i = 0; i < l; i++) {
-      window.dancers[i].lineup();
+      window.dancers[i].lineup(0);
     }
   });
+
+  $('body').on('mouseover', '.dancer', function(event){
+
+    event.preventDefault();
+    $(this).fadeOut(2000);
+  });
+
+  $('body').on('mouseout', '.dancer', function(event){
+    event.preventDefault();
+    $(this).fadeIn(2000);
+  });
+
+  $('body').on('click', '.dancer', function(event){
+    event.preventDefault();
+    var dist = [];
+    var baseLeft = Number($(this).css('left').replace("px", ""));
+    var baseTop = Number($(this).css('top').replace("px", ""));
+
+    let l = window.dancers.length;
+    for (let i = 0; i < l; i++) {
+      let d = ((window.dancers[i].top - baseTop)**2 + (window.dancers[i].left - baseLeft)**2)**0.5;
+      dist.push([d,i]);
+    }
+
+    dist = dist.sort( (a,b) => {
+      return a[0] - b[0]; 
+    });
+
+    for (let i = 1; i < 20 && i< l ; i++){
+      let index = dist[i][1];
+      window.dancers[index].lineup(baseLeft);
+    }
+  });
+
+
+
+  $('.reset').on('click',  function(event){
+    $('.dancer').remove();
+  });
+
 });
+
 
